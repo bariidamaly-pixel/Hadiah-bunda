@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07130f">
+<title>Tabungan Umrah Bunda</title>
+<style>
+:root{--bg:#07130f;--card:rgba(255,255,255,.055);--line:rgba(255,255,255,.09);--gold:#d8b45a;--gold2:#f3dc9a;--em:#2fbf8f;--txt:#eef3f0;--mut:#8fa59b;--red:#ff7a6b;--serif:Georgia,'Times New Roman',serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:var(--txt);min-height:100vh;
+  background:radial-gradient(900px 500px at 85% -10%,rgba(216,180,90,.16),transparent 60%),radial-gradient(700px 500px at -10% 30%,rgba(47,191,143,.12),transparent 60%),var(--bg);background-attachment:fixed}
+header{padding:26px 20px 6px;max-width:720px;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+header .eyebrow{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.9}
+header h1{margin:6px 0 2px;font-family:var(--serif);font-weight:400;font-size:27px;background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+header small{color:var(--mut);font-size:13px}
+#hdrR{display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-top:2px}
+.pill2{font-size:12px;padding:5px 11px;border-radius:99px;background:rgba(216,180,90,.12);border:1px solid rgba(216,180,90,.3);color:var(--gold2);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbtns{display:flex;gap:6px}
+.out{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--mut);border-radius:99px;padding:5px 12px;font-size:12px;font-family:inherit}
+main{padding:14px 16px 110px;max-width:720px;margin:auto}
+.sec{animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.card h3{margin:0 0 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.hero{display:flex;gap:18px;align-items:center}
+.ring{position:relative;width:128px;height:128px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:10;stroke-linecap:round}
+.trk{stroke:rgba(255,255,255,.08)}
+.prg{stroke:url(#g);stroke-dasharray:339.3;animation:ring 1.3s cubic-bezier(.2,.8,.2,1)}
+@keyframes ring{from{stroke-dashoffset:339.3}}
+.ring .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:27px;color:var(--gold2)}
+.ring .pct small{font-size:13px;opacity:.7}
+.hero .lbl{font-size:12px;color:var(--mut)}
+.hero .big{font-family:var(--serif);font-size:28px;color:var(--gold2);line-height:1.15;margin:2px 0 8px}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--mut);padding:2px 0}
+.kv b{color:var(--txt);font-weight:600}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chip{font-size:12px;padding:7px 12px;border-radius:99px;background:rgba(216,180,90,.1);border:1px solid rgba(216,180,90,.25);color:var(--gold2)}
+.chip.link{cursor:pointer;background:rgba(255,122,107,.12);border-color:rgba(255,122,107,.35);color:var(--red)}
+.mem{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.mem:last-child{border:0;padding-bottom:0}
+.mem.me{background:linear-gradient(90deg,rgba(216,180,90,.09),transparent);margin:0 -10px;padding-left:10px;padding-right:10px;border-radius:12px}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;color:#fff;flex:none}
+.mem .mid{flex:1;min-width:0}
+.mem .nm{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mem .nm small{color:var(--gold2);font-size:11px}
+.mbar{height:5px;border-radius:3px;background:rgba(255,255,255,.08);margin-top:7px;overflow:hidden}
+.mbar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--em),var(--gold))}
+.mem .rt{text-align:right}
+.mem .rt b{font-family:var(--serif);font-size:15px;font-weight:400;color:var(--gold2)}
+.pill{display:inline-block;margin-top:4px;font-size:10.5px;padding:2px 9px;border-radius:99px}
+.pill.ok{background:rgba(47,191,143,.15);color:var(--em)}
+.pill.late{background:rgba(255,122,107,.15);color:var(--red)}
+.scroll{overflow-x:auto;margin:0 -4px}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{padding:8px 5px;text-align:center;white-space:nowrap}
+th{color:var(--mut);font-weight:500}
+th.now{color:var(--gold2)}
+td:first-child,th:first-child{text-align:left;position:sticky;left:0;background:#0e2119;padding-right:10px;z-index:1}
+.dot{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700}
+.dot.ok{background:var(--em);color:#06261b}
+.dot.half{background:var(--gold);color:#2a1f00}
+.dot.no{background:rgba(255,255,255,.06);color:var(--mut)}
+.legend{font-size:11px;color:var(--mut);margin-top:10px}
+label{display:block;font-size:12px;margin:14px 0 6px;color:var(--mut);letter-spacing:.04em}
+input,select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:rgba(255,255,255,.06);color:var(--txt);outline:none;font-family:inherit}
+input:focus,select:focus{border-color:var(--gold)}
+select option{background:#0e2119;color:#fff}
+input[type=date],input[type=month]{color-scheme:dark;min-height:48px;width:100%;max-width:100%;display:block;touch-action:manipulation;font-size:16px}
+.btn{width:100%;padding:14px;margin-top:16px;border:0;border-radius:14px;font-size:15px;font-weight:700;letter-spacing:.02em;color:#2a1f00;background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 8px 24px rgba(216,180,90,.22);font-family:inherit}
+.btn:active{transform:scale(.98)}
+.btn.alt{background:rgba(255,255,255,.07);color:var(--txt);box-shadow:none;border:1px solid var(--line);margin-top:10px}
+.btn.del{background:rgba(255,122,107,.1);color:var(--red);box-shadow:none;border:1px solid rgba(255,122,107,.25);margin-top:10px}
+.tx{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.tx:last-child{border:0}
+.tx .l{font-size:14px}
+.tx .l strong{font-weight:600}
+.tx small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
+.tx .r{display:flex;align-items:center;gap:8px}
+.tx b{font-family:var(--serif);font-weight:400;color:var(--gold2)}
+.tx button{border:0;background:rgba(255,255,255,.06);color:var(--mut);width:30px;height:30px;border-radius:50%;font-size:14px}
+.tx button.ok{background:rgba(47,191,143,.18);color:var(--em)}
+.st{font-size:10.5px;padding:2px 8px;border-radius:99px;margin-left:6px}
+.st.w{background:rgba(216,180,90,.15);color:var(--gold2)}
+.st.t{background:rgba(255,122,107,.15);color:var(--red)}
+.empty{color:var(--mut);font-size:14px;text-align:center;padding:20px 0}
+.note{font-size:12px;color:var(--mut);line-height:1.6;margin-top:10px}
+.whol{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.who{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--txt);font-size:14px;text-align:left;font-family:inherit}
+.who small{display:block;font-size:10px;color:var(--mut)}
+.who.on{border-color:var(--gold);background:rgba(216,180,90,.1)}
+.who:disabled{opacity:.4}
+.who .av{width:32px;height:32px;font-size:13px}
+.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.mrow .av{width:36px;height:36px;font-size:14px}
+.mrow .mid{flex:1;min-width:0}
+.mrow input{padding:9px 11px;font-size:14px}
+.mrow small{display:block;color:var(--mut);font-size:11px;margin-top:4px}
+.mini{border:1px solid rgba(216,180,90,.35);background:rgba(216,180,90,.1);color:var(--gold2);border-radius:10px;padding:8px 10px;font-size:12px;font-family:inherit;white-space:nowrap}
+.mini.x{border-color:rgba(255,122,107,.3);background:rgba(255,122,107,.08);color:var(--red);padding:8px 11px}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));width:calc(100% - 28px);max-width:420px;display:flex;padding:7px;border-radius:24px;background:rgba(14,33,25,.82);border:1px solid var(--line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 12px 40px rgba(0,0,0,.5);z-index:10}
+nav:empty{display:none}
+nav button{flex:1;position:relative;border:0;background:none;color:var(--mut);padding:8px 0 6px;border-radius:18px;font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:inherit;transition:.25s}
+nav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--gold2);background:rgba(216,180,90,.13)}
+.bdg{position:absolute;top:3px;left:calc(50% + 6px);background:var(--red);color:#fff;font-style:normal;font-size:10px;min-width:16px;height:16px;border-radius:8px;display:grid;place-items:center;padding:0 4px}
+#toast{position:fixed;top:18px;left:50%;transform:translate(-50%,-120px);background:var(--gold);color:#2a1f00;padding:11px 20px;border-radius:18px;font-size:14px;font-weight:600;transition:.35s;z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90%;text-align:center}
+#toast.on{transform:translate(-50%,0)}
+.hide{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div>
+      <div class="eyebrow">Hadiah untuk Bunda</div>
+      <h1 id="ttl">Tabungan Umrah Bunda</h1>
+      <small id="sub"></small>
+    </div>
+    <div id="hdrR"></div>
+  </div>
+</header>
+<main>
+  <section id="gate" class="sec"><div class="card"><div class="empty">Memuat…</div></div></section>
+  <section id="ringkas" class="sec hide"></section>
+  <section id="bayar" class="sec hide"></section>
+  <section id="riwayat" class="sec hide"></section>
+  <section id="atur" class="sec hide"></section>
+</main>
+<nav id="nav"></nav>
+<div id="toast"></div><script>
+// ====== PENGATURAN ======
+// Kosongkan = mode 1 HP (data hanya di HP ini).
+// Isi URL Firebase Realtime Database = saudara bisa login dari HP masing-masing.
+// Contoh: const DB_URL = 'https://nama-proyek-default-rtdb.firebaseio.com';
+const DB_URL = '';
+// ========================
+
+const K = 'tabungan_umrah_v1', KP = 'tabungan_umrah_pending_v1', KS = 'tabungan_umrah_sess_v1';
+const cloud = !!DB_URL, base = DB_URL.replace(/\/+$/, '');
+const BLN = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+const BLNF = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const rp = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ym = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+const today = () => { const d = new Date(); return ym(d) + '-' + String(d.getDate()).padStart(2,'0'); };
+const lbl = m => BLN[+m.slice(5)-1] + " '" + m.slice(2,4);
+const lblF = m => BLNF[+m.slice(5)-1] + ' ' + m.slice(0,4);
+const $ = s => document.querySelector(s);
+const clone = o => JSON.parse(JSON.stringify(o));
+const initial = n => esc(String(n).trim().charAt(0).toUpperCase() || '?');
+const hue = i => `hsl(${(i*53+150)%360} 42% 36%)`;
+function addM(m, n){
+  let y = +m.slice(0,4), k = +m.slice(5) - 1 + n;
+  y += Math.floor(k/12); k = ((k%12)+12)%12;
+  return y + '-' + String(k+1).padStart(2,'0');
+}
+function toast(msg, ms){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toast.id); toast.id = setTimeout(()=>t.classList.remove('on'), ms || 2300);
+}
+// hash ringan untuk PIN (proteksi tingkat aplikasi, bukan enkripsi)
+function hash(s){
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57; s = 'tu|' + s;
+  for (let i = 0, c; i < s.length; i++){ c = s.charCodeAt(i); h1 = Math.imul(h1 ^ c, 2654435761); h2 = Math.imul(h2 ^ c, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1>>>0)).toString(36);
+}
+
+const DEF = {
+  title: 'Tabungan Umrah Bunda', target: 30000000, iuran: 100000, start: ym(new Date()), adminPin: '',
+  members: ['Saya','Saudara 2','Saudara 3','Saudara 4','Saudara 5','Saudara 6'].map((n,i)=>({id:i+1, name:n, pin:''})),
+  tx: []
+};
+let S = null, P = {}, ME = null, view = 'ringkas', loginWho = null, fltr = 'all';
+
+// ====== PENYIMPANAN ======
+const arr = x => Array.isArray(x) ? x.filter(Boolean) : (x && typeof x === 'object' ? Object.values(x) : []);
+function norm(){ S.members = arr(S.members); S.tx = arr(S.tx); }
+function readCache(){ try { return JSON.parse(localStorage.getItem(K)); } catch(e){ return null; } }
+async function load(){
+  if (!cloud){
+    let p = {}; try { p = JSON.parse(localStorage.getItem(KP)) || {}; } catch(e){}
+    return {s: readCache(), p};
+  }
+  const r = await fetch(base + '/.json', {cache: 'no-store'});
+  if (!r.ok) throw new Error('http ' + r.status);
+  const d = (await r.json()) || {};
+  const c = readCache();
+  return {s: d.data || (c && !c.adminPin ? c : null), p: d.pending || {}};
+}
+async function save(){
+  localStorage.setItem(K, JSON.stringify(S));
+  if (cloud){
+    try {
+      const r = await fetch(base + '/data.json', {method:'PUT', body: JSON.stringify(S)});
+      if (!r.ok) throw 0;
+    } catch(e){ toast('Gagal simpan ke cloud, cek internet'); render(); return false; }
+  }
+  render(); return true;
+}
+async function putPending(p){
+  P[p.id] = p;
+  if (cloud) { const r = await fetch(`${base}/pending/${p.id}.json`, {method:'PUT', body: JSON.stringify(p)}); if (!r.ok) throw 0; }
+  else localStorage.setItem(KP, JSON.stringify(P));
+}
+async function delPending(id){
+  delete P[id];
+  if (cloud) { const r = await fetch(`${base}/pending/${id}.json`, {method:'DELETE'}); if (!r.ok) throw 0; }
+  else localStorage.setItem(KP, JSON.stringify(P));
+}
+const pendingList = () => Object.values(P).filter(Boolean).sort((a,b) => (b.ts||0) - (a.ts||0));
+
+// ====== SESI ======
+function sessLoad(){
+  try {
+    const s = JSON.parse(localStorage.getItem(KS));
+    if (!s || !S) return null;
+    if (s.role === 'admin' && S.adminPin && s.h === S.adminPin) return {role:'admin'};
+    const m = S.members.find(x => x.id === s.mid);
+    if (s.role === 'member' && m && m.pin && s.h === m.pin) return {role:'member', mid:m.id};
+  } catch(e){}
+  return null;
+}
+function logout(){ localStorage.removeItem(KS); loginWho = null; view = 'ringkas'; render(); }
+// ====== HITUNGAN ======
+const cur = () => ym(new Date());
+function months(){
+  const end = cur() < S.start ? S.start : cur();
+  const list = [];
+  for (let m = S.start; m <= addM(end,1); m = addM(m,1)) list.push(m);
+  return list;
+}
+const paid = (mid, mo) => S.tx.filter(t => t.mid===mid && t.mo===mo).reduce((a,t)=>a+t.amt,0);
+const total = mid => S.tx.filter(t => mid==null || t.mid===mid).reduce((a,t)=>a+t.amt,0);
+const dueMonths = () => months().filter(m => m <= cur());
+const arrears = mid => dueMonths().reduce((a,m) => a + Math.max(0, S.iuran - paid(mid,m)), 0);
+const paidTotal = mid => dueMonths().reduce((a,m) => a + paid(mid,m), 0);
+const nameOf = id => (S.members.find(m=>m.id===id) || {name:'?'}).name;
+
+function countUp(el, to){
+  const t0 = performance.now(), dur = 900;
+  (function f(t){
+    const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1-p, 3);
+    el.textContent = rp(to * e);
+    if (p < 1) requestAnimationFrame(f);
+  })(t0);
+}
+
+// ====== GERBANG: SETUP & LOGIN ======
+function renderGate(){
+  const g = $('#gate');
+  if (!S.adminPin){
+    g.innerHTML = `<div class="card"><h3>Selamat datang 👋</h3>
+      <div class="note" style="margin:0 0 4px">Kamu admin pertama. Buat PIN admin (4–8 angka) untuk mengelola tabungan.</div>
+      <label>PIN admin</label><input id="p1" type="password" inputmode="numeric" autocomplete="off">
+      <label>Ulangi PIN</label><input id="p2" type="password" inputmode="numeric" autocomplete="off">
+      <button class="btn" onclick="doSetup()">Mulai</button>
+      <div class="note">${cloud ? '☁️ Mode cloud aktif: data sinkron ke semua HP.' : '📱 Mode 1 HP: data hanya tersimpan di HP ini. Isi DB_URL di kode agar saudara bisa login dari HP masing-masing.'}</div></div>`;
+    return;
+  }
+  const who = [{k:'admin', n:'Admin', i:'★', c:'hsl(42 60% 38%)', off:false}]
+    .concat(S.members.map((m,i) => ({k:m.id, n:m.name, i:initial(m.name), c:hue(i), off:!m.pin})));
+  g.innerHTML = `<div class="card"><h3>Masuk sebagai</h3><div class="whol">` + who.map(w => {
+    const arg = w.k === 'admin' ? "'admin'" : w.k;
+    return `<button class="who ${loginWho===w.k?'on':''}" ${w.off?'disabled':''} onclick="pickWho(${arg})">
+      <span class="av" style="background:${w.c}">${w.i}</span><span>${esc(w.n)}${w.off?'<small>belum diundang</small>':''}</span></button>`;
+  }).join('') + `</div>` + (loginWho !== null ? `<label>PIN</label>
+    <input id="l_pin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn" onclick="doLogin()">Masuk</button>` : '') + `</div>`;
+}
+function pickWho(k){ loginWho = k; renderGate(); setTimeout(()=>{ const e = $('#l_pin'); if (e) e.focus(); }, 60); }
+function doLogin(){
+  const pin = ($('#l_pin').value || '').trim();
+  let ok = false, sess;
+  if (loginWho === 'admin'){ const h = hash('admin:' + pin); ok = h === S.adminPin; sess = {role:'admin', h}; }
+  else {
+    const m = S.members.find(x => x.id === loginWho);
+    const h = m ? hash(m.id + ':' + pin) : '';
+    ok = !!(m && m.pin && h === m.pin); sess = {role:'member', mid:loginWho, h};
+  }
+  if (!ok) return toast('PIN salah');
+  localStorage.setItem(KS, JSON.stringify(sess)); view = 'ringkas'; render();
+}
+async function doSetup(){
+  const a = $('#p1').value.trim(), b = $('#p2').value.trim();
+  if (!/^\d{4,8}$/.test(a)) return toast('PIN harus 4–8 angka');
+  if (a !== b) return toast('PIN tidak sama');
+  S.adminPin = hash('admin:' + a);
+  localStorage.setItem(KS, JSON.stringify({role:'admin', h:S.adminPin}));
+  view = 'ringkas'; await save(); toast('Selamat datang, Admin ✓');
+}
+
+// ====== RINGKASAN ======
+function renderRingkas(){
+  const t = total(), pct = Math.min(100, t / S.target * 100);
+  const remain = Math.max(0, S.target - t);
+  const perMonth = S.iuran * S.members.length;
+  let est;
+  if (remain === 0) est = 'Target tercapai 🎉';
+  else {
+    const b = cur() < S.start ? S.start : cur();
+    est = 'Estimasi tercapai ' + lblF(addM(b, Math.ceil(remain / Math.max(1, perMonth))));
+  }
+  let bulanIni = 'Belum mulai';
+  if (cur() >= S.start){
+    const n = S.members.filter(m => paid(m.id, cur()) >= S.iuran).length;
+    bulanIni = `Bulan ini: ${n}/${S.members.length} sudah setor`;
+  }
+  const pc = ME.role === 'admin' ? pendingList().filter(p => p.st !== 'tolak').length : 0;
+  const ms = months(), due = dueMonths().length;
+
+  let h = `<div class="card"><div class="hero">
+    <div class="ring"><svg width="128" height="128" viewBox="0 0 128 128">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc9a"/><stop offset="1" stop-color="#2fbf8f"/></linearGradient></defs>
+      <circle class="trk" cx="64" cy="64" r="54"/>
+      <circle class="prg" cx="64" cy="64" r="54" style="stroke-dashoffset:${339.3 * (1 - pct/100)}"/>
+    </svg><div class="pct">${Math.round(pct)}<small>%</small></div></div>
+    <div style="flex:1;min-width:0">
+      <div class="lbl" style="font-size:12px;color:var(--mut)">Terkumpul</div>
+      <div class="big" id="cnt">${rp(t)}</div>
+      <div class="kv"><span>Target</span><b>${rp(S.target)}</b></div>
+      <div class="kv"><span>Kurang</span><b>${rp(remain)}</b></div>
+    </div></div>
+    <div class="chips"><span class="chip">${est}</span><span class="chip">${bulanIni}</span>
+    ${pc ? `<span class="chip link" onclick="show('riwayat')">${pc} laporan menunggu</span>` : ''}</div></div>`;
+
+  h += `<div class="card"><h3>Per Orang</h3>`;
+  S.members.forEach((m, i) => {
+    const a = arrears(m.id), exp = S.iuran * due;
+    const p = exp > 0 ? Math.min(100, paidTotal(m.id) / exp * 100) : 100;
+    const me = ME.role === 'member' && ME.mid === m.id;
+    h += `<div class="mem ${me?'me':''}"><div class="av" style="background:${hue(i)}">${initial(m.name)}</div>
+      <div class="mid"><div class="nm">${esc(m.name)} ${me?'<small>(kamu)</small>':''}</div><div class="mbar"><i style="width:${p}%"></i></div></div>
+      <div class="rt"><b>${rp(total(m.id))}</b><br>${a > 0 ? `<span class="pill late">nunggak ${rp(a)}</span>` : `<span class="pill ok">aman</span>`}</div></div>`;
+  });
+  h += `</div><div class="card"><h3>Status Bulanan</h3><div class="scroll"><table><tr><th>Nama</th>${ms.map(m=>`<th class="${m===cur()?'now':''}">${lbl(m)}</th>`).join('')}</tr>`;
+  S.members.forEach(m => {
+    h += `<tr><td>${esc(m.name)}</td>` + ms.map(mo => {
+      const p = paid(m.id, mo);
+      return p >= S.iuran ? '<td><span class="dot ok">✓</span></td>' : p > 0 ? '<td><span class="dot half">½</span></td>' : '<td><span class="dot no">·</span></td>';
+    }).join('') + '</tr>';
+  });
+  h += `</table></div><div class="legend">✓ lunas &nbsp;·&nbsp; ½ sebagian &nbsp;·&nbsp; · belum</div></div>
+    <button class="btn" onclick="shareWA()">Bagikan rekap ke WhatsApp</button>`;
+  $('#ringkas').innerHTML = h;
+  countUp($('#cnt'), t);
+}
+// ====== SETOR (admin) / LAPOR (member) ======
+function monthOpts(){ const o = []; for (let i=0;i<24;i++) o.push(addM(S.start,i)); return o; }
+function bindDateResponsive(){
+  const d = $('#f_date'), m = $('#f_mo');
+  if (!d || !m) return;
+  const sync = () => {
+    if (!d.value || d.value.length < 7) return;
+    const ymVal = d.value.slice(0, 7);
+    if ([...m.options].some(o => o.value === ymVal)) m.value = ymVal;
+  };
+  d.addEventListener('change', sync);
+  d.addEventListener('input', sync);
+}
+function setupEasyDate(){
+  const d = $('#f_date'), m = $('#f_mo');
+  if (!d || !d.parentNode) return;
+  let box = $('#easyDateBox');
+  if (!box){
+    box = document.createElement('div');
+    box.id = 'easyDateBox';
+    box.style.cssText = 'display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;margin-top:8px';
+    box.innerHTML = `<select id="ed_day"></select><select id="ed_mon"></select><select id="ed_yr"></select>`;
+    d.insertAdjacentElement('afterend', box);
+  }
+  const dayEl = $('#ed_day'), monEl = $('#ed_mon'), yrEl = $('#ed_yr');
+  dayEl.innerHTML = Array.from({length:31},(_,i)=>`<option value="${String(i+1).padStart(2,'0')}">Tgl ${i+1}</option>`).join('');
+  monEl.innerHTML = BLNF.map((n,i)=>`<option value="${String(i+1).padStart(2,'0')}">${n}</option>`).join('');
+  const curY = new Date().getFullYear();
+  yrEl.innerHTML = [curY-1, curY, curY+1].map(y=>`<option value="${y}">${y}</option>`).join('');
+
+  const syncFromInput = () => {
+    const val = (d.value || today()).split('-');
+    if (val.length === 3){ yrEl.value = val[0]; monEl.value = val[1]; dayEl.value = val[2]; }
+  };
+  const syncToInput = () => {
+    const y = yrEl.value, mo = monEl.value, maxD = new Date(+y, +mo, 0).getDate();
+    const da = String(Math.min(+dayEl.value, maxD)).padStart(2,'0');
+    dayEl.value = da;
+    d.value = `${y}-${mo}-${da}`;
+    if (m){
+      const ymVal = `${y}-${mo}`;
+      if ([...m.options].some(o => o.value === ymVal)) m.value = ymVal;
+    }
+  };
+  syncFromInput();
+  dayEl.onchange = syncToInput;
+  monEl.onchange = syncToInput;
+  yrEl.onchange = syncToInput;
+  d.onchange = syncFromInput;
+}
+function renderBayar(){
+  const opts = monthOpts().map(o => `<option value="${o}" ${o===cur()?'selected':''}>${lblF(o)}</option>`).join('');
+  if (ME.role === 'admin'){
+    $('#bayar').innerHTML = `<div class="card"><h3>Catat Setoran</h3>
+      <label>Siapa</label><select id="f_m">${S.members.map(m=>`<option value="${m.id}">${esc(m.name)}</option>`).join('')}</select>
+      <label>Untuk bulan</label><select id="f_mo">${opts}</select>
+      <label>Jumlah (Rp)</label><input id="f_amt" type="number" inputmode="numeric" value="${S.iuran}">
+      <label>Tanggal setor</label><input id="f_date" type="date" value="${today()}">
+      <label>Catatan (opsional)</label><input id="f_note" placeholder="mis. transfer BCA">
+      <button class="btn" onclick="addTx()">Simpan Setoran</button></div>`;
+    bindDateResponsive();
+    setupEasyDate();
+    return;
+  }
+  const mine = pendingList().filter(p => p.mid === ME.mid);
+  $('#bayar').innerHTML = `<div class="card"><h3>Lapor Setoran</h3>
+    <div class="note" style="margin:0">Setelah kamu transfer, laporkan di sini. Admin akan mengecek dulu sebelum masuk ke rekap.</div>
+    <label>Untuk bulan</label><select id="f_mo">${opts}</select>
+    <label>Jumlah (Rp)</label><input id="f_amt" type="number" inputmode="numeric" value="${S.iuran}">
+    <label>Tanggal transfer</label><input id="f_date" type="date" value="${today()}">
+    <label>Catatan (opsional)</label><input id="f_note" placeholder="mis. transfer BCA">
+    <button class="btn" onclick="sendReport()">Kirim Laporan</button></div>` +
+    (mine.length ? `<div class="card"><h3>Laporan saya</h3>` + mine.map(p => `<div class="tx"><div class="l">${lbl(p.mo)} · ${p.date}
+      <span class="st ${p.st==='tolak'?'t':'w'}">${p.st==='tolak'?'ditolak':'menunggu'}</span>${p.note?`<small>${esc(p.note)}</small>`:''}</div>
+      <div class="r"><b>${rp(p.amt)}</b><button onclick="delReport('${p.id}')">✕</button></div></div>`).join('') + '</div>' : '');
+  bindDateResponsive();
+  setupEasyDate();
+}
+async function addTx(){
+  const amt = +$('#f_amt').value;
+  if (!(amt > 0)) return toast('Jumlah harus lebih dari 0');
+  S.tx.push({id: Date.now(), mid: +$('#f_m').value, mo: $('#f_mo').value, amt, date: $('#f_date').value || today(), note: $('#f_note').value.trim()});
+  view = 'riwayat';
+  if (await save()) toast('Setoran tersimpan ✓');
+}
+async function sendReport(){
+  const amt = +$('#f_amt').value;
+  if (!(amt > 0)) return toast('Jumlah harus lebih dari 0');
+  const p = {id:'p' + Date.now(), mid: ME.mid, mo: $('#f_mo').value, amt, date: $('#f_date').value || today(), note: $('#f_note').value.trim(), ts: Date.now(), st:'wait'};
+  try { await putPending(p); toast('Laporan terkirim, menunggu admin ✓'); }
+  catch(e){ delete P[p.id]; toast('Gagal kirim, cek internet'); }
+  renderBayar();
+}
+async function delReport(id){
+  try { await delPending(id); } catch(e){ toast('Gagal menghapus'); }
+  render();
+}
+
+// ====== RIWAYAT ======
+function renderRiwayat(){
+  const admin = ME.role === 'admin';
+  let h = '';
+  if (admin){
+    const pend = pendingList().filter(p => p.st !== 'tolak');
+    if (pend.length) h += `<div class="card"><h3>Menunggu konfirmasi · ${pend.length}</h3>` + pend.map(p => `<div class="tx">
+      <div class="l"><strong>${esc(nameOf(p.mid))}</strong> · ${lbl(p.mo)}<small>${p.date}${p.note?' · '+esc(p.note):''}</small></div>
+      <div class="r"><b>${rp(p.amt)}</b><button class="ok" onclick="approve('${p.id}')">✓</button><button onclick="reject('${p.id}')">✕</button></div></div>`).join('') + '</div>';
+  }
+  let list = [...S.tx].sort((a,b) => (b.date||'').localeCompare(a.date||'') || b.id - a.id);
+  if (fltr !== 'all') list = list.filter(t => String(t.mid) === fltr);
+  h += `<div class="card"><h3>Riwayat · ${list.length} setoran</h3>
+    <select onchange="fltr=this.value;renderRiwayat()" style="margin-bottom:6px"><option value="all">Semua orang</option>${S.members.map(m=>`<option value="${m.id}" ${String(m.id)===fltr?'selected':''}>${esc(m.name)}</option>`).join('')}</select>` +
+    (list.length ? list.map(t => `<div class="tx"><div class="l"><strong>${esc(nameOf(t.mid))}</strong> · ${lbl(t.mo)}
+      <small>${t.date}${t.note ? ' · ' + esc(t.note) : ''}</small></div>
+      <div class="r"><b>${rp(t.amt)}</b>${admin ? `<button onclick="delTx(${t.id})">✕</button>` : ''}</div></div>`).join('') : '<div class="empty">Belum ada setoran.</div>') + '</div>';
+  $('#riwayat').innerHTML = h;
+}
+let delConfirmId = null, delConfirmTimer = null;
+async function delTx(id){
+  const sid = String(id);
+  if (delConfirmId !== sid){
+    delConfirmId = sid;
+    clearTimeout(delConfirmTimer);
+    delConfirmTimer = setTimeout(() => { delConfirmId = null; }, 3000);
+    return toast('Tekan ✕ sekali lagi untuk hapus', 3000);
+  }
+  delConfirmId = null;
+  clearTimeout(delConfirmTimer);
+  S.tx = S.tx.filter(t => String(t.id) !== sid);
+  if (await save()) toast('Setoran dihapus ✓');
+}
+async function approve(id){
+  const p = P[id]; if (!p) return;
+  S.tx.push({id: Date.now(), mid: p.mid, mo: p.mo, amt: p.amt, date: p.date, note: p.note || ''});
+  if (await save()){
+    try { await delPending(id); } catch(e){ toast('Masuk rekap, tapi laporan belum terhapus'); }
+    render(); toast('Setoran diterima ✓');
+  } else { S.tx.pop(); }
+}
+async function reject(id){
+  const p = P[id]; if (!p) return;
+  p.st = 'tolak';
+  try { await putPending(p); toast('Laporan ditolak'); } catch(e){ toast('Gagal, cek internet'); }
+  render();
+}
+// ====== ATUR (admin) ======
+function setupEasyStartMonth(){
+  const inp = $('#s_s');
+  if (!inp || !inp.parentNode) return;
+  let box = $('#easyStartBox');
+  if (!box){
+    box = document.createElement('div');
+    box.id = 'easyStartBox';
+    box.style.cssText = 'display:grid;grid-template-columns:1.4fr 1fr;gap:8px;margin-top:8px';
+    box.innerHTML = `<select id="es_mon"></select><select id="es_yr"></select>`;
+    inp.insertAdjacentElement('afterend', box);
+  }
+  const monEl = $('#es_mon'), yrEl = $('#es_yr');
+  monEl.innerHTML = BLNF.map((n,i)=>`<option value="${String(i+1).padStart(2,'0')}">${n}</option>`).join('');
+  const curY = new Date().getFullYear();
+  yrEl.innerHTML = [curY-1, curY, curY+1, curY+2].map(y=>`<option value="${y}">${y}</option>`).join('');
+
+  const syncFromInp = () => {
+    const val = (inp.value || cur()).split('-');
+    if (val.length >= 2){ yrEl.value = val[0]; monEl.value = val[1]; }
+  };
+  const syncToInp = () => { inp.value = `${yrEl.value}-${monEl.value}`; };
+  syncFromInp();
+  monEl.onchange = syncToInp;
+  yrEl.onchange = syncToInp;
+  inp.onchange = syncFromInp;
+}
+function renderAtur(){
+  $('#atur').innerHTML = `<div class="card"><h3>Anggota</h3>
+    <div class="note" style="margin:0 0 4px">Ganti nama: ketik langsung, otomatis tersimpan. Tombol <b>Undang</b> membuat PIN baru dan menyalin pesan undangan untuk dikirim lewat WhatsApp.</div>` +
+    S.members.map((m,i) => `<div class="mrow"><div class="av" style="background:${hue(i)}">${initial(m.name)}</div>
+      <div class="mid"><input value="${esc(m.name)}" onchange="renameM(${m.id},this.value)"><small>${m.pin ? 'Sudah punya PIN' : 'Belum diundang'}</small></div>
+      <button class="mini" onclick="inviteM(${m.id})">Undang</button><button class="mini x" onclick="delM(${m.id})">✕</button></div>`).join('') +
+    `<button class="btn alt" onclick="addM_()">+ Tambah anggota</button></div>
+
+    <div class="card"><h3>Pengaturan Tabungan</h3>
+    <label>Judul</label><input id="s_t" value="${esc(S.title)}">
+    <label>Target total (Rp)</label><input id="s_tg" type="number" inputmode="numeric" value="${S.target}">
+    <label>Iuran per orang per bulan (Rp)</label><input id="s_i" type="number" inputmode="numeric" value="${S.iuran}">
+    <label>Mulai bulan</label><input id="s_s" type="month" value="${S.start}">
+    <button class="btn" onclick="saveSet()">Simpan Pengaturan</button></div>
+
+    <div class="card"><h3>Keamanan & Koneksi</h3>
+    <div class="note" style="margin:0">${cloud ? '☁️ Mode cloud: semua HP sinkron otomatis.' : '📱 Mode 1 HP: saudara belum bisa login dari HP mereka. Isi <b>DB_URL</b> di kode lalu hosting file ini.'}</div>
+    <button class="btn alt" onclick="changeAdminPin()">Ganti PIN admin</button></div>
+
+    <div class="card"><h3>Data</h3>
+    <button class="btn alt" onclick="backup()" style="margin-top:0">Salin data (backup)</button>
+    <button class="btn alt" onclick="restore()">Pulihkan dari backup</button>
+    <button class="btn del" onclick="resetAll()">Hapus semua data</button></div>`;
+  setupEasyStartMonth();
+}
+async function renameM(id, v){
+  const m = S.members.find(x => x.id === id); v = v.trim();
+  if (!m || !v) return renderAtur();
+  m.name = v; if (await save()) toast('Nama diganti ✓');
+}
+async function addM_(){
+  const id = S.members.reduce((a,m) => Math.max(a, m.id), 0) + 1;
+  S.members.push({id, name:'Anggota ' + (S.members.length + 1), pin:''});
+  if (await save()) toast('Anggota ditambah, ganti namanya lalu tekan Undang', 4000);
+}
+async function delM(id){
+  const m = S.members.find(x => x.id === id);
+  if (S.tx.some(t => t.mid === id)) return toast('Sudah punya riwayat setoran. Ganti nama saja.', 3500);
+  if (S.members.length <= 1) return toast('Minimal 1 anggota');
+  if (!confirm(`Hapus ${m.name}?`)) return;
+  S.members = S.members.filter(x => x.id !== id);
+  if (await save()) toast('Anggota dihapus');
+}
+async function inviteM(id){
+  const m = S.members.find(x => x.id === id);
+  const c = prompt(`PIN baru untuk ${m.name} (4–8 angka).\nKosongkan = acak 4 angka.`, '');
+  if (c === null) return;
+  const pin = c.trim() || String(Math.floor(1000 + Math.random() * 9000));
+  if (!/^\d{4,8}$/.test(pin)) return toast('PIN harus 4–8 angka');
+  m.pin = hash(m.id + ':' + pin);
+  if (!(await save())) return;
+  const here = location.href.split('#')[0];
+  const link = /^https?:\/\/(?!localhost|127\.|192\.168\.|10\.)/.test(here) ? here : '(isi link app di sini)';
+  const t = `Assalamualaikum ${m.name} 👋\n\nIni aplikasi tabungan umrah Bunda:\n${link}\n\nCara masuk: pilih nama "${m.name}", lalu masukkan PIN: ${pin}\n\nDi sana kamu bisa lihat rekap tabungan dan melapor setoran.`;
+  copy(t, `PIN ${m.name}: ${pin} · pesan undangan tersalin`);
+}
+async function saveSet(){
+  S.title = $('#s_t').value.trim() || DEF.title;
+  S.target = +$('#s_tg').value || S.target;
+  S.iuran = +$('#s_i').value || S.iuran;
+  S.start = $('#s_s').value || S.start;
+  if (await save()) toast('Pengaturan tersimpan ✓');
+}
+async function changeAdminPin(){
+  const a = prompt('PIN admin baru (4–8 angka):'); if (a === null) return;
+  if (!/^\d{4,8}$/.test(a.trim())) return toast('PIN harus 4–8 angka');
+  S.adminPin = hash('admin:' + a.trim());
+  localStorage.setItem(KS, JSON.stringify({role:'admin', h:S.adminPin}));
+  if (await save()) toast('PIN admin diganti ✓');
+}
+function copy(text, msg){
+  const ok = () => toast(msg || 'Tersalin ✓', msg ? 6000 : 2300);
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(ok, () => prompt('Salin manual:', text));
+  prompt('Salin manual:', text);
+}
+function backup(){ copy(JSON.stringify(S)); }
+async function restore(){
+  const j = prompt('Tempel data backup:'); if (!j) return;
+  try {
+    const d = JSON.parse(j); if (!Array.isArray(d.members) || !Array.isArray(d.tx)) throw 0;
+    S = d; norm(); if (await save()) toast('Berhasil dipulihkan ✓');
+  } catch(e){ toast('Data tidak valid'); }
+}
+async function resetAll(){
+  if (!(confirm('Yakin hapus SEMUA data?') && confirm('Beneran? Semua setoran, anggota, dan PIN akan hilang.'))) return;
+  S = clone(DEF); P = {};
+  localStorage.removeItem(KS); localStorage.removeItem(KP);
+  if (cloud) { try { await fetch(base + '/pending.json', {method:'DELETE'}); } catch(e){} }
+  await save(); toast('Data direset');
+}
+
+function shareWA(){
+  const t = total();
+  let s = `*${S.title}*\nPer ${new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})}\n\n` +
+    `Terkumpul: ${rp(t)}\nTarget: ${rp(S.target)} (${Math.min(100,t/S.target*100).toFixed(1)}%)\nKurang: ${rp(Math.max(0,S.target-t))}\n\n*Per orang:*\n`;
+  S.members.forEach(m => {
+    const a = arrears(m.id);
+    s += `- ${m.name}: ${rp(total(m.id))}${a>0 ? ` (nunggak ${rp(a)})` : ' ✓'}\n`;
+  });
+  if (navigator.share) navigator.share({text: s}).catch(()=>copy(s)); else copy(s);
+}
+
+// ====== NAVIGASI & RENDER ======
+const ICON = {
+  ringkas:'<svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  bayar:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
+  riwayat:'<svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>',
+  atur:'<svg viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>'
+};
+function tabs(){
+  return ME.role === 'admin'
+    ? [['ringkas','Ringkasan'],['bayar','Setor'],['riwayat','Riwayat'],['atur','Atur']]
+    : [['ringkas','Ringkasan'],['bayar','Lapor'],['riwayat','Riwayat']];
+}
+function buildNav(){
+  const pc = ME.role === 'admin' ? pendingList().filter(p => p.st !== 'tolak').length : 0;
+  $('#nav').innerHTML = tabs().map(([v,l]) => `<button class="${v===view?'on':''}" onclick="show('${v}')">${ICON[v]}${l}${v==='riwayat'&&pc?`<i class="bdg">${pc}</i>`:''}</button>`).join('');
+}
+function show(v){ view = v; applyView(); window.scrollTo(0,0); }
+function applyView(){
+  ['gate','ringkas','bayar','riwayat','atur'].forEach(id => $('#' + id).classList.toggle('hide', id !== view));
+  buildNav();
+}
+function render(){
+  if (!S) return;
+  ME = sessLoad();
+  $('#ttl').textContent = S.title;
+  $('#sub').textContent = `${S.members.length} orang · ${rp(S.iuran)} per bulan`;
+  if (!S.adminPin || !ME){
+    $('#hdrR').innerHTML = ''; $('#nav').innerHTML = '';
+    ['ringkas','bayar','riwayat','atur'].forEach(i => $('#' + i).classList.add('hide'));
+    $('#gate').classList.remove('hide'); renderGate(); return;
+  }
+  if (!tabs().some(t => t[0] === view)) view = 'ringkas';
+  const label = ME.role === 'admin' ? 'Admin' : nameOf(ME.mid);
+  $('#hdrR').innerHTML = `<span class="pill2">${esc(label)}</span><div class="hbtns">${cloud ? '<button class="out" onclick="manualRefresh()">↻</button>' : ''}<button class="out" onclick="logout()">Keluar</button></div>`;
+  renderRingkas(); renderBayar(); renderRiwayat();
+  if (ME.role === 'admin') renderAtur(); else $('#atur').innerHTML = '';
+  applyView();
+}
+
+// ====== SINKRONISASI ======
+async function refresh(manual){
+  try {
+    const r = await load();
+    if (!r.s) return;
+    const before = JSON.stringify([S, P]);
+    const ns = r.s; ns.members = arr(ns.members); ns.tx = arr(ns.tx);
+    if (JSON.stringify([ns, r.p]) !== before){ S = ns; P = r.p; localStorage.setItem(K, JSON.stringify(S)); render(); }
+    if (manual) toast('Data diperbarui ✓');
+  } catch(e){ if (manual) toast('Gagal terhubung'); }
+}
+function manualRefresh(){ refresh(true); }
+setInterval(() => {
+  if (!cloud || document.hidden || !ME) return;
+  const a = document.activeElement;
+  if (a && /INPUT|SELECT|TEXTAREA/.test(a.tagName)) return;
+  refresh(false);
+}, 20000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden && cloud && ME) refresh(false); });
+
+async function boot(){
+  let r;
+  try { r = await load(); }
+  catch(e){
+    const c = readCache();
+    if (!c){
+      $('#gate').innerHTML = `<div class="card"><h3>Tidak bisa terhubung</h3><div class="note" style="margin:0">Cek internet kamu lalu coba lagi.</div><button class="btn" onclick="location.reload()">Coba lagi</button></div>`;
+      return;
+    }
+    r = {s:c, p:{}}; toast('Offline: menampilkan data terakhir', 3500);
+  }
+  S = r.s || clone(DEF); P = r.p || {}; norm();
+  render();
+}
+boot();
+</script>
+</body>
+</html>
