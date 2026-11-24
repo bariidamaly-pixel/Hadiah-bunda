@@ -127,25 +127,6 @@ nav button.on{color:var(--gold2);background:rgba(216,180,90,.13)}
   </div>
 </header>
 <main>
-  <section class="sec card" id="loginCard">
-  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-    <div>
-      <h3 style="margin:0">Masuk Anggota</h3>
-      <small id="activeUserLabel" style="color:var(--mut)">Belum masuk</small>
-    </div>
-    <form id="memberLoginForm" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-      <input
-        type="text"
-        id="memberNameInput"
-        placeholder="Nama kamu..."
-        maxlength="30"
-        style="max-width:190px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.22);color:var(--txt);font-size:13px"
-        required
-      />
-      <button type="submit" style="padding:10px 16px;border-radius:12px;border:1px solid rgba(216,180,90,.45);background:rgba(216,180,90,.18);color:var(--txt);font-weight:600;font-size:13px;cursor:pointer">Masuk</button>
-    </form>
-  </div>
-  </section>
   <section id="gate" class="sec"><div class="card"><div class="empty">Memuat…</div></div></section>
   <section id="ringkas" class="sec hide"></section>
   <section id="bayar" class="sec hide"></section>
@@ -305,7 +286,13 @@ function doLogin(){
     const h = m ? hash(m.id + ':' + pin) : '';
     ok = !!(m && m.pin && h === m.pin); sess = {role:'member', mid:loginWho, h};
   }
-  if (!ok) return toast('PIN salah');
+  if (!ok) return toast('PIN salah');  
+  if (sess && sess.role === 'member') {
+    const memberObj = S.members.find(x => x.id === loginWho);
+    const memberName = memberObj ? memberObj.name : String(loginWho);
+    sendLoginEvent(memberName);
+  }
+  
   localStorage.setItem(KS, JSON.stringify(sess)); view = 'ringkas'; render();
 }
 async function doSetup(){
@@ -725,11 +712,6 @@ boot();
   const LOGIN_PATH = `${RTDB_URL}/loginEvents.json`;
   const MY_ADMIN_NAME = "Dian";
   const STORAGE_KEY = "hadiah_bunda_member_name";
-
-  const form = document.getElementById("memberLoginForm");
-  const input = document.getElementById("memberNameInput");
-  const statusLabel = document.getElementById("activeUserLabel");
-
   let isFirstLoad = true;
   const seenKeys = new Set();
 
@@ -741,12 +723,7 @@ boot();
       .replace(/"/g, "&quot;");
   }
 
-  function renderActiveUser(name) {
-    if (!statusLabel) return;
-    statusLabel.textContent = name ? `Masuk sebagai: ${name}` : "Belum masuk";
-  }
-
-  function showLoginNotif(name, timeText) {
+  function showLoginNotif(name, timeText) {. 
     let toast = document.getElementById("loginNotifToast");
     if (!toast) {
       toast = document.createElement("div");
@@ -767,7 +744,7 @@ boot();
     }, 4500);
   }
 
-  async function sendLoginEvent(userName) {
+  window.sendLoginEvent = async function(userName) {.
     const cleanName = String(userName || "").trim();
     if (!cleanName) return;
 
@@ -789,25 +766,6 @@ boot();
       console.error("Gagal mencatat login:", err);
     }
   }
-
-  const savedName = localStorage.getItem(STORAGE_KEY) || "";
-  if (savedName) {
-    if (input) input.value = savedName;
-    renderActiveUser(savedName);
-  }
-
-  if (form && input) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const name = input.value.trim();
-      if (!name) return;
-
-      localStorage.setItem(STORAGE_KEY, name);
-      renderActiveUser(name);
-      await sendLoginEvent(name);
-    });
-  }
-
   async function pollLoginEvents() {
     try {
       const res = await fetch(LOGIN_PATH);
