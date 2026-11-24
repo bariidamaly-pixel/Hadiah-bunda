@@ -739,6 +739,7 @@ async function boot(){
     r = {s:c, p:{}}; toast('Offline: menampilkan data terakhir', 3500);
   }
   S = r.s || clone(DEF); P = r.p || {}; norm();
+  view = 'utama';
   render();
 }
 boot();
