@@ -591,7 +591,7 @@ function renderAtur(){
     function displayMemberName(m) {
   if (!m) return '?';
   const realName = m.name || '?';
-  const myId = (ME && (ME.nid ?? ME.id ?? ME.mid));
+    const myId = ME ? (ME.nid || ME.id || ME.mid) : null;
   const isSelf = myId !== undefined && myId !== null && String(m.id) === String(myId);
   if (ME && ME.role === 'member' && !isSelf) {
     return 'Anak inaq';
