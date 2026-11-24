@@ -588,17 +588,15 @@ function renderAtur(){
 
     <div class="card"><h3>Data</h3>
     <button class="btn alt" onclick="backup()" style="margin-top:0">Salin data (backup)</button>
-    <button class="btn alt" onclick="restore()">Pulihkan dari backup</button>
-    <button class="btn del" onclick="resetAll()">Hapus semua data</button></div>`;
-  setupEasyStartMonth();
-}
-  function displayMemberName(m) {
+    function displayMemberName(m) {
   if (!m) return '?';
   const realName = m.name || '?';
-  if (ME && ME.role === 'member' && Number(m.id) !== Number(ME.nid)) {
+  const myId = (ME && (ME.nid ?? ME.id ?? ME.mid));
+  const isSelf = myId !== undefined && myId !== null && String(m.id) === String(myId);
+  if (ME && ME.role === 'member' && !isSelf) {
     return 'Anak inaq';
   }
-  return realName;
+    return realName;
 }
 
 function memberLabelById(id) {
