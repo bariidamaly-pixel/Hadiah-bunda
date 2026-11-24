@@ -308,7 +308,8 @@ async function doSetup(){
 // ====== RINGKASAN ======
   function renderUtama(){
   const t = total(), pct = Math.min(100, t / S.target * 100);
-  const label = ME.role === 'admin' ? 'Admin' : nameOf(ME.nid);
+  const _nm = nameOf(ME.nid);
+const label = ME.role === 'admin' ? 'Admin' : ((!_nm || _nm === '?') ? 'Anggota' : _nm);
   $('#utama').innerHTML = `
     <div class="card">
       <h3>Beranda · ${esc(label)}</h3>
@@ -698,7 +699,8 @@ function render(){
     renderGate(); return;
   }
   if (!tabs().some(t => t[0] === view)) view = 'utama';
-  const label = ME.role === 'admin' ? 'Admin' : nameOf(ME.nid);
+  const _nm = nameOf(ME.nid);
+const label = ME.role === 'admin' ? 'Admin' : ((!_nm || _nm === '?') ? 'Anggota' : _nm);
   $('#hdrR').innerHTML = `<span class="pill">${esc(label)}</span><div class="hbtns">${cloud?'<button class="out" onclick="logout()">Keluar</button>':''}</div>`;
   renderUtama();
   renderRingkas(); renderBayar(); renderRiwayat();
