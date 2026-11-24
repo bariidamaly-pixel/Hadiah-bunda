@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230b241b'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23f3dc9a'>☪</text></svg>"> 
-<style>
+  <style>
 :root{--bg:#07130f;--card:rgba(255,255,255,.055);--line:rgba(255,255,255,.09);--gold:#d8b45a;--gold2:#f3dc9a;--em:#2fbf8f;--txt:#eef3f0;--mut:#8fa59b;--red:#ff7a6b;--serif:Georgia,'Times New Roman',serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:var(--txt);min-height:100vh;
@@ -127,6 +127,25 @@ nav button.on{color:var(--gold2);background:rgba(216,180,90,.13)}
   </div>
 </header>
 <main>
+  <section class="sec card" id="loginCard">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+    <div>
+      <h3 style="margin:0">Masuk Anggota</h3>
+      <small id="activeUserLabel" style="color:var(--mut)">Belum masuk</small>
+    </div>
+    <form id="memberLoginForm" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <input
+        type="text"
+        id="memberNameInput"
+        placeholder="Nama kamu..."
+        maxlength="30"
+        style="max-width:190px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.22);color:var(--txt);font-size:13px"
+        required
+      />
+      <button type="submit" style="padding:10px 16px;border-radius:12px;border:1px solid rgba(216,180,90,.45);background:rgba(216,180,90,.18);color:var(--txt);font-weight:600;font-size:13px;cursor:pointer">Masuk</button>
+    </form>
+  </div>
+  </section>
   <section id="gate" class="sec"><div class="card"><div class="empty">Memuat…</div></div></section>
   <section id="ringkas" class="sec hide"></section>
   <section id="bayar" class="sec hide"></section>
@@ -701,6 +720,121 @@ async function boot(){
   render();
 }
 boot();
+(function () {
+  const RTDB_URL = "https://umrah-bunda-default-rtdb.firebaseio.com";
+  const LOGIN_PATH = `${RTDB_URL}/loginEvents.json`;
+  const MY_ADMIN_NAME = "Dian";
+  const STORAGE_KEY = "hadiah_bunda_member_name";
+
+  const form = document.getElementById("memberLoginForm");
+  const input = document.getElementById("memberNameInput");
+  const statusLabel = document.getElementById("activeUserLabel");
+
+  let isFirstLoad = true;
+  const seenKeys = new Set();
+
+  function escapeText(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function renderActiveUser(name) {
+    if (!statusLabel) return;
+    statusLabel.textContent = name ? `Masuk sebagai: ${name}` : "Belum masuk";
+  }
+
+  function showLoginNotif(name, timeText) {
+    let toast = document.getElementById("loginNotifToast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "loginNotifToast";
+      toast.style.cssText =
+        "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;max-width:92vw;width:340px;background:#122426;border:1px solid rgba(216,180,90,.55);color:#fff;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.45);font-size:12px;";
+      document.body.appendChild(toast);
+    }
+
+    toast.innerHTML = `<strong style="color:#e5c158;display:block;margin-bottom:2px">Anggota Login</strong><span>${escapeText(
+      name
+    )} baru saja masuk (${escapeText(timeText)})</span>`;
+    toast.style.display = "block";
+
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.style.display = "none";
+    }, 4500);
+  }
+
+  async function sendLoginEvent(userName) {
+    const cleanName = String(userName || "").trim();
+    if (!cleanName) return;
+
+    try {
+      const now = new Date();
+      await fetch(LOGIN_PATH, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: cleanName,
+          createdAt: now.toISOString(),
+          localTime: now.toLocaleTimeString("id-ID", {
+            hour: "2-digit",
+            minute: "2-digit"
+          })
+        })
+      });
+    } catch (err) {
+      console.error("Gagal mencatat login:", err);
+    }
+  }
+
+  const savedName = localStorage.getItem(STORAGE_KEY) || "";
+  if (savedName) {
+    if (input) input.value = savedName;
+    renderActiveUser(savedName);
+  }
+
+  if (form && input) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = input.value.trim();
+      if (!name) return;
+
+      localStorage.setItem(STORAGE_KEY, name);
+      renderActiveUser(name);
+      await sendLoginEvent(name);
+    });
+  }
+
+  async function pollLoginEvents() {
+    try {
+      const res = await fetch(LOGIN_PATH);
+      const data = await res.json();
+      if (!data) {
+        isFirstLoad = false;
+        return;
+      }
+
+      const entries = Object.entries(data);
+      for (const [key, item] of entries) {
+        if (seenKeys.has(key)) continue;
+        seenKeys.add(key);
+
+        if (!isFirstLoad && item && item.name) {
+          if (item.name.trim().toLowerCase() !== MY_ADMIN_NAME.trim().toLowerCase()) {
+            showLoginNotif(item.name, item.localTime || "baru saja");
+          }
+        }
+      }
+      isFirstLoad = false;
+    } catch (err) {}
+  }
+
+  pollLoginEvents();
+  setInterval(pollLoginEvents, 5000);
+})();
 </script>
 </body>
 </html>
