@@ -806,8 +806,7 @@ window.sendLoginEvent = async function (userName) {
         "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;max-width:92vw;width:340px;background:#122426;border:1px solid rgba(216,180,90,.55);color:#fff;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.45);font-size:12px;";
       document.body.appendChild(toast);
     }
-        toast.innerHTML = `<strong style="color:#e5c158;display:block;margin-bottom:2px">Anggota Login</strong><span>${esc(name)} baru saja masuk (${escapeText(timeText)})</span>`;
-    
+            toast.innerHTML = `<strong style="color:#e5c158;display:block;margin-bottom:2px">Anggota Login</strong><span>${esc(name)} baru saja masuk (${escapeText(timeText)})</span>`;
     toast.style.display = "block";
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => {
