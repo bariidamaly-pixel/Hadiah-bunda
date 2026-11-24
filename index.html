@@ -376,12 +376,14 @@ function renderRingkas(){
     const p = exp > 0 ? Math.min(100, paidTotal(m.id) / exp * 100) : 100;
     const me = ME.role === 'member' && ME.mid === m.id;
     h += `<div class="mem ${me?'me':''}"><div class="av" style="background:${hue(i)}">${initial(m.name)}</div>
-      <div class="mid"><div class="nm">${esc(m.name)} ${me?'<small>(kamu)</small>':''}</div><div class="mbar"><i style="width:${p}%"></i></div></div>
+      <div class="mid"><div class="nm">${esc(displayMemberName(m))}
+      ${me?'<small>(kamu)</small>':''}</div><div class="mbar"><i style="width:${p}%"></i></div></div>
       <div class="rt"><b>${rp(total(m.id))}</b><br>${a > 0 ? `<span class="pill late">nunggak ${rp(a)}</span>` : `<span class="pill ok">aman</span>`}</div></div>`;
   });
   h += `</div><div class="card"><h3>Status Bulanan</h3><div class="scroll"><table><tr><th>Nama</th>${ms.map(m=>`<th class="${m===cur()?'now':''}">${lbl(m)}</th>`).join('')}</tr>`;
   S.members.forEach(m => {
-    h += `<tr><td>${esc(m.name)}</td>` + ms.map(mo => {
+    h += `<tr><td>${esc(displayMemberName(m))}
+    </td>` + ms.map(mo => {
       const p = paid(m.id, mo);
       return p >= S.iuran ? '<td><span class="dot ok">✓</span></td>' : p > 0 ? '<td><span class="dot half">½</span></td>' : '<td><span class="dot no">·</span></td>';
     }).join('') + '</tr>';
@@ -496,14 +498,16 @@ function renderRiwayat(){
   if (admin){
     const pend = pendingList().filter(p => p.st !== 'tolak');
     if (pend.length) h += `<div class="card"><h3>Menunggu konfirmasi · ${pend.length}</h3>` + pend.map(p => `<div class="tx">
-      <div class="l"><strong>${esc(nameOf(p.mid))}</strong> · ${lbl(p.mo)}<small>${p.date}${p.note?' · '+esc(p.note):''}</small></div>
+      <div class="l"><strong>${esc(memberLabelById(p.mid))}
+      </strong> · ${lbl(p.mo)}<small>${p.date}${p.note?' · '+esc(p.note):''}</small></div>
       <div class="r"><b>${rp(p.amt)}</b><button class="ok" onclick="approve('${p.id}')">✓</button><button onclick="reject('${p.id}')">✕</button></div></div>`).join('') + '</div>';
   }
   let list = [...S.tx].sort((a,b) => (b.date||'').localeCompare(a.date||'') || b.id - a.id);
   if (fltr !== 'all') list = list.filter(t => String(t.mid) === fltr);
   h += `<div class="card"><h3>Riwayat · ${list.length} setoran</h3>
     <select onchange="fltr=this.value;renderRiwayat()" style="margin-bottom:6px"><option value="all">Semua orang</option>${S.members.map(m=>`<option value="${m.id}" ${String(m.id)===fltr?'selected':''}>${esc(m.name)}</option>`).join('')}</select>` +
-    (list.length ? list.map(t => `<div class="tx"><div class="l"><strong>${esc(nameOf(t.mid))}</strong> · ${lbl(t.mo)}
+    (list.length ? list.map(t => `<div class="tx"><div class="l"><strong>${esc(memberLabelById(t.mid))}
+    </strong> · ${lbl(t.mo)}
       <small>${t.date}${t.note ? ' · ' + esc(t.note) : ''}</small></div>
       <div class="r"><b>${rp(t.amt)}</b>${admin ? `<button onclick="delTx(${t.id})">✕</button>` : ''}</div></div>`).join('') : '<div class="empty">Belum ada setoran.</div>') + '</div>';
   $('#riwayat').innerHTML = h;
@@ -587,6 +591,22 @@ function renderAtur(){
     <button class="btn alt" onclick="restore()">Pulihkan dari backup</button>
     <button class="btn del" onclick="resetAll()">Hapus semua data</button></div>`;
   setupEasyStartMonth();
+}
+  function displayMemberName(m) {
+  if (!m) return '?';
+  const realName = m.name || '?';
+  if (ME && ME.role === 'member' && Number(m.id) !== Number(ME.nid)) {
+    return 'Anak inaq';
+  }
+  return realName;
+}
+
+function memberLabelById(id) {
+  const m = (S && Array.isArray(S.members))
+    ? S.members.find(x => Number(x.id) === Number(id))
+    : null;
+  if (m) return displayMemberName(m);
+  return nameOf(id);
 }
 async function renameM(id, v){
   const m = S.members.find(x => x.id === id); v = v.trim();
