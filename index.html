@@ -707,11 +707,29 @@ async function boot(){
   render();
 }
 boot();
+window.sendLoginEvent = async function (userName) {
+  const cleanName = String(userName || "").trim();
+  if (!cleanName) return;
+  try {
+    const now = new Date();
+    await fetch("https://umrah-bunda-default-rtdb.firebaseio.com/loginEvents.json", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: cleanName,
+        createdAt: now.toISOString(),
+        localTime: now.toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      })
+    });
+  } catch (err) {}
+};
+
 (function () {
-  const RTDB_URL = "https://umrah-bunda-default-rtdb.firebaseio.com";
-  const LOGIN_PATH = `${RTDB_URL}/loginEvents.json`;
+  const LOGIN_PATH = "https://umrah-bunda-default-rtdb.firebaseio.com/loginEvents.json";
   const MY_ADMIN_NAME = "Dian";
-  const STORAGE_KEY = "hadiah_bunda_member_name";
   let isFirstLoad = true;
   const seenKeys = new Set();
 
@@ -723,7 +741,7 @@ boot();
       .replace(/"/g, "&quot;");
   }
 
-  function showLoginNotif(name, timeText) {. 
+  function showLoginNotif(name, timeText) {
     let toast = document.getElementById("loginNotifToast");
     if (!toast) {
       toast = document.createElement("div");
@@ -732,40 +750,16 @@ boot();
         "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;max-width:92vw;width:340px;background:#122426;border:1px solid rgba(216,180,90,.55);color:#fff;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.45);font-size:12px;";
       document.body.appendChild(toast);
     }
-
     toast.innerHTML = `<strong style="color:#e5c158;display:block;margin-bottom:2px">Anggota Login</strong><span>${escapeText(
       name
     )} baru saja masuk (${escapeText(timeText)})</span>`;
     toast.style.display = "block";
-
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => {
       toast.style.display = "none";
     }, 4500);
   }
 
-  window.sendLoginEvent = async function(userName) {.
-    const cleanName = String(userName || "").trim();
-    if (!cleanName) return;
-
-    try {
-      const now = new Date();
-      await fetch(LOGIN_PATH, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: cleanName,
-          createdAt: now.toISOString(),
-          localTime: now.toLocaleTimeString("id-ID", {
-            hour: "2-digit",
-            minute: "2-digit"
-          })
-        })
-      });
-    } catch (err) {
-      console.error("Gagal mencatat login:", err);
-    }
-  }
   async function pollLoginEvents() {
     try {
       const res = await fetch(LOGIN_PATH);
@@ -774,12 +768,9 @@ boot();
         isFirstLoad = false;
         return;
       }
-
-      const entries = Object.entries(data);
-      for (const [key, item] of entries) {
+      for (const [key, item] of Object.entries(data)) {
         if (seenKeys.has(key)) continue;
         seenKeys.add(key);
-
         if (!isFirstLoad && item && item.name) {
           if (item.name.trim().toLowerCase() !== MY_ADMIN_NAME.trim().toLowerCase()) {
             showLoginNotif(item.name, item.localTime || "baru saja");
@@ -793,6 +784,7 @@ boot();
   pollLoginEvents();
   setInterval(pollLoginEvents, 5000);
 })();
+  
 </script>
 </body>
 </html>
