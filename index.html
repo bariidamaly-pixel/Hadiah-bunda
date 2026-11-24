@@ -113,8 +113,8 @@ nav button.on{color:var(--gold2);background:rgba(216,180,90,.13)}
 #toast{position:fixed;top:18px;left:50%;transform:translate(-50%,-120px);background:var(--gold);color:#2a1f00;padding:11px 20px;border-radius:18px;font-size:14px;font-weight:600;transition:.35s;z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90%;text-align:center}
 #toast.on{transform:translate(-50%,0)}
 .hide{display:none}
-</style>
-</head>
+      </style>
+      </head>
 <body>
 <header>
   <div class="top">
@@ -127,7 +127,7 @@ nav button.on{color:var(--gold2);background:rgba(216,180,90,.13)}
   </div>
 </header>
 <main>
-        <section id="utama" class="sec hide"></section>
+  <section id="utama" class="sec hide"></section>
   <section id="gate" class="sec"><div class="card"><div class="empty">Memuat…</div></div></section>
   <section id="ringkas" class="sec hide"></section>
   <section id="bayar" class="sec hide"></section>
@@ -135,8 +135,9 @@ nav button.on{color:var(--gold2);background:rgba(216,180,90,.13)}
   <section id="atur" class="sec hide"></section>
 </main>
 <nav id="nav"></nav>
-<div id="toast"></div><script>
-// ====== PENGATURAN ======
+<div id="toast"></div>
+<script>
+  // ====== PENGATURAN ======
 // Kosongkan = mode 1 HP (data hanya di HP ini).
 // Isi URL Firebase Realtime Database = saudara bisa login dari HP masing-masing.
 // Contoh: const DB_URL = 'https://nama-proyek-default-rtdb.firebaseio.com';
@@ -231,6 +232,7 @@ function sessLoad(){
   return null;
 }
 function logout(){ localStorage.removeItem(KS); loginWho = null; view = 'ringkas'; render(); }
+
 // ====== HITUNGAN ======
 const cur = () => ym(new Date());
 function months(){
@@ -246,6 +248,25 @@ const arrears = mid => dueMonths().reduce((a,m) => a + Math.max(0, S.iuran - pai
 const paidTotal = mid => dueMonths().reduce((a,m) => a + paid(mid,m), 0);
 const nameOf = id => (S.members.find(m=>m.id===id) || {name:'?'}).name;
 
+function displayMemberName(m) {
+  if (!m) return '?';
+  const realName = m.name || '?';
+  const myId = ME ? (ME.mid || ME.nid || ME.id) : null;
+  const isSelf = myId !== undefined && myId !== null && String(m.id) === String(myId);
+  if (ME && ME.role === 'member' && !isSelf) {
+    return 'Anak inaq';
+  }
+  return realName;
+}
+
+function memberLabelById(id) {
+  const m = (S && Array.isArray(S.members))
+    ? S.members.find(x => Number(x.id) === Number(id))
+    : null;
+  if (m) return displayMemberName(m);
+  return nameOf(id);
+}
+
 function countUp(el, to){
   const t0 = performance.now(), dur = 900;
   (function f(t){
@@ -253,9 +274,8 @@ function countUp(el, to){
     el.textContent = rp(to * e);
     if (p < 1) requestAnimationFrame(f);
   })(t0);
-}
-
-// ====== GERBANG: SETUP & LOGIN ======
+  }
+  // ====== GERBANG: SETUP & LOGIN ======
 function renderGate(){
   const g = $('#gate');
   if (!S.adminPin){
@@ -287,13 +307,12 @@ function doLogin(){
     const h = m ? hash(m.id + ':' + pin) : '';
     ok = !!(m && m.pin && h === m.pin); sess = {role:'member', mid:loginWho, h};
   }
-  if (!ok) return toast('PIN salah');  
+  if (!ok) return toast('PIN salah');
   if (sess && sess.role === 'member') {
     const memberObj = S.members.find(x => x.id === loginWho);
     const memberName = memberObj ? memberObj.name : String(loginWho);
     sendLoginEvent(memberName);
   }
-  
   localStorage.setItem(KS, JSON.stringify(sess)); view = 'utama'; render();
 }
 async function doSetup(){
@@ -306,10 +325,10 @@ async function doSetup(){
 }
 
 // ====== RINGKASAN ======
-  function renderUtama(){
+function renderUtama(){
   const t = total(), pct = Math.min(100, t / S.target * 100);
-  const _nm = nameOf(ME.nid);
-const label = ME.role === 'admin' ? 'Admin' : ((!_nm || _nm === '?') ? 'Anggota' : _nm);
+  const _nm = nameOf(ME.mid || ME.nid);
+  const label = ME.role === 'admin' ? 'Admin' : ((!_nm || _nm === '?') ? 'Anggota' : _nm);
   $('#utama').innerHTML = `
     <div class="card">
       <h3>Beranda · ${esc(label)}</h3>
@@ -335,9 +354,8 @@ const label = ME.role === 'admin' ? 'Admin' : ((!_nm || _nm === '?') ? 'Anggota'
       </div>
     </div>
   `;
-  }
-  
-function renderRingkas(){
+       }
+  function renderRingkas(){
   const t = total(), pct = Math.min(100, t / S.target * 100);
   const remain = Math.max(0, S.target - t);
   const perMonth = S.iuran * S.members.length;
@@ -382,8 +400,7 @@ function renderRingkas(){
   });
   h += `</div><div class="card"><h3>Status Bulanan</h3><div class="scroll"><table><tr><th>Nama</th>${ms.map(m=>`<th class="${m===cur()?'now':''}">${lbl(m)}</th>`).join('')}</tr>`;
   S.members.forEach(m => {
-    h += `<tr><td>${esc(displayMemberName(m))}
-    </td>` + ms.map(mo => {
+    h += `<tr><td>${esc(displayMemberName(m))}</td>` + ms.map(mo => {
       const p = paid(m.id, mo);
       return p >= S.iuran ? '<td><span class="dot ok">✓</span></td>' : p > 0 ? '<td><span class="dot half">½</span></td>' : '<td><span class="dot no">·</span></td>';
     }).join('') + '</tr>';
@@ -393,6 +410,7 @@ function renderRingkas(){
   $('#ringkas').innerHTML = h;
   countUp($('#cnt'), t);
 }
+
 // ====== SETOR (admin) / LAPOR (member) ======
 function monthOpts(){ const o = []; for (let i=0;i<24;i++) o.push(addM(S.start,i)); return o; }
 function bindDateResponsive(){
@@ -442,8 +460,8 @@ function setupEasyDate(){
   monEl.onchange = syncToInput;
   yrEl.onchange = syncToInput;
   d.onchange = syncFromInput;
-}
-function renderBayar(){
+      }
+  function renderBayar(){
   const opts = monthOpts().map(o => `<option value="${o}" ${o===cur()?'selected':''}>${lblF(o)}</option>`).join('');
   if (ME.role === 'admin'){
     $('#bayar').innerHTML = `<div class="card"><h3>Catat Setoran</h3>
@@ -498,16 +516,14 @@ function renderRiwayat(){
   if (admin){
     const pend = pendingList().filter(p => p.st !== 'tolak');
     if (pend.length) h += `<div class="card"><h3>Menunggu konfirmasi · ${pend.length}</h3>` + pend.map(p => `<div class="tx">
-      <div class="l"><strong>${esc(memberLabelById(p.mid))}
-      </strong> · ${lbl(p.mo)}<small>${p.date}${p.note?' · '+esc(p.note):''}</small></div>
+      <div class="l"><strong>${esc(memberLabelById(p.mid))}</strong> · ${lbl(p.mo)}<small>${p.date}${p.note?' · '+esc(p.note):''}</small></div>
       <div class="r"><b>${rp(p.amt)}</b><button class="ok" onclick="approve('${p.id}')">✓</button><button onclick="reject('${p.id}')">✕</button></div></div>`).join('') + '</div>';
   }
   let list = [...S.tx].sort((a,b) => (b.date||'').localeCompare(a.date||'') || b.id - a.id);
   if (fltr !== 'all') list = list.filter(t => String(t.mid) === fltr);
   h += `<div class="card"><h3>Riwayat · ${list.length} setoran</h3>
     <select onchange="fltr=this.value;renderRiwayat()" style="margin-bottom:6px"><option value="all">Semua orang</option>${S.members.map(m=>`<option value="${m.id}" ${String(m.id)===fltr?'selected':''}>${esc(m.name)}</option>`).join('')}</select>` +
-    (list.length ? list.map(t => `<div class="tx"><div class="l"><strong>${esc(memberLabelById(t.mid))}
-    </strong> · ${lbl(t.mo)}
+    (list.length ? list.map(t => `<div class="tx"><div class="l"><strong>${esc(memberLabelById(t.mid))}</strong> · ${lbl(t.mo)}
       <small>${t.date}${t.note ? ' · ' + esc(t.note) : ''}</small></div>
       <div class="r"><b>${rp(t.amt)}</b>${admin ? `<button onclick="delTx(${t.id})">✕</button>` : ''}</div></div>`).join('') : '<div class="empty">Belum ada setoran.</div>') + '</div>';
   $('#riwayat').innerHTML = h;
@@ -540,7 +556,7 @@ async function reject(id){
   try { await putPending(p); toast('Laporan ditolak'); } catch(e){ toast('Gagal, cek internet'); }
   render();
 }
-// ====== ATUR (admin) ======
+  // ====== ATUR (admin) ======
 function setupEasyStartMonth(){
   const inp = $('#s_s');
   if (!inp || !inp.parentNode) return;
@@ -588,25 +604,11 @@ function renderAtur(){
 
     <div class="card"><h3>Data</h3>
     <button class="btn alt" onclick="backup()" style="margin-top:0">Salin data (backup)</button>
-    function displayMemberName(m) {
-  if (!m) return '?';
-  const realName = m.name || '?';
-    const myId = ME ? (ME.nid || ME.id || ME.mid) : null;
-  const isSelf = myId !== undefined && myId !== null && String(m.id) === String(myId);
-  if (ME && ME.role === 'member' && !isSelf) {
-    return 'Anak inaq';
+    <button class="btn alt" onclick="restore()">Pulihkan data (restore)</button>
+    <button class="btn del" onclick="resetAll()">Reset semua data</button></div>`;
+  setupEasyStartMonth();
   }
-    return realName;
-}
-
-function memberLabelById(id) {
-  const m = (S && Array.isArray(S.members))
-    ? S.members.find(x => Number(x.id) === Number(id))
-    : null;
-  if (m) return displayMemberName(m);
-  return nameOf(id);
-}
-async function renameM(id, v){
+  async function renameM(id, v){
   const m = S.members.find(x => x.id === id); v = v.trim();
   if (!m || !v) return renderAtur();
   m.name = v; if (await save()) toast('Nama diganti ✓');
@@ -717,15 +719,14 @@ function render(){
     renderGate(); return;
   }
   if (!tabs().some(t => t[0] === view)) view = 'utama';
-  const _nm = nameOf(ME.nid);
-const label = ME.role === 'admin' ? 'Admin' : ((!_nm || _nm === '?') ? 'Anggota' : _nm);
+  const _nm = nameOf(ME.mid || ME.nid);
+  const label = ME.role === 'admin' ? 'Admin' : ((!_nm || _nm === '?') ? 'Anggota' : _nm);
   $('#hdrR').innerHTML = `<span class="pill">${esc(label)}</span><div class="hbtns">${cloud?'<button class="out" onclick="logout()">Keluar</button>':''}</div>`;
   renderUtama();
   renderRingkas(); renderBayar(); renderRiwayat();
   if (ME.role === 'admin') renderAtur(); else $('#atur').innerHTML = '';
   applyView();
 }
-
 
 // ====== SINKRONISASI ======
 async function refresh(manual){
@@ -763,6 +764,7 @@ async function boot(){
   render();
 }
 boot();
+
 window.sendLoginEvent = async function (userName) {
   const cleanName = String(userName || "").trim();
   if (!cleanName) return;
@@ -806,7 +808,7 @@ window.sendLoginEvent = async function (userName) {
         "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;max-width:92vw;width:340px;background:#122426;border:1px solid rgba(216,180,90,.55);color:#fff;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.45);font-size:12px;";
       document.body.appendChild(toast);
     }
-            toast.innerHTML = `<strong style="color:#e5c158;display:block;margin-bottom:2px">Anggota Login</strong><span>${esc(name)} baru saja masuk (${escapeText(timeText)})</span>`;
+    toast.innerHTML = `<strong style="color:#e5c158;display:block;margin-bottom:2px">Anggota Login</strong><span>${esc(name)} baru saja masuk (${escapeText(timeText)})</span>`;
     toast.style.display = "block";
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => {
@@ -837,7 +839,7 @@ window.sendLoginEvent = async function (userName) {
 
   pollLoginEvents();
   setInterval(pollLoginEvents, 5000);
-  
+})();
 </script>
 </body>
 </html>
