@@ -391,11 +391,12 @@ async function saveQuote(){
 
 function shareQuote(){
   const qText = (S.quote && S.quote.trim()) ? S.quote : DEFAULT_QUOTE;
-  const text = `${qText}\n\n— ${S.title}`;
+  const appUrl = location.origin + location.pathname;
+  const text = `${qText}\n\n— ${S.title}\nBuka / Install Aplikasi: ${appUrl}`;
   if (navigator.share) navigator.share({text}).catch(() => copy(text));
   else copy(text);
 }
-  
+    
   function renderRingkas(){
   const t = total(), pct = Math.min(100, t / S.target * 100);
   const remain = Math.max(0, S.target - t);
